@@ -63,7 +63,7 @@ exit
 
 -----
 
-<b>T-Shooting</b>
+## T-Shooting
 
 ```
 cqlsh> DESCRIBE keyspaces;
