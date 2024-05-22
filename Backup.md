@@ -71,28 +71,28 @@ cqlsh> DESCRIBE keyspaces;
 CREATE KEYSPACE tahlilgaran WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 1};
 ```
 ```
-ls /var/lib/cassandra/data/tahlilgaran
+ls /var/lib/cassandra/data/<keyspace_name>
 ```
-```
+
 * in */etc/cassandra/cassandra.yaml* check:
 ```
 data_file_directories:
     - /var/lib/cassandra/data
 ```
 ```
-nodetool refresh tahlilgaran center
+nodetool refresh <keyspace_name> center
 ```
 ```
 tail -f /var/log/cassandra/system.log
 ```
 * Check Tables:
 ```
-cqlsh > USE tahlilgaran;
+cqlsh > USE <keyspace_name>;
 DESCRIBE tables;
 ```
 * Create Tables:
 ```
-CREATE TABLE center (
+CREATE TABLE users (
     id UUID PRIMARY KEY,
     name text,
     description text
@@ -100,8 +100,11 @@ CREATE TABLE center (
 ```
 * Check Data Files:
 ```
-/var/lib/cassandra/data/tahlilgaran/center-<UUID>
+/var/lib/cassandra/data/<keyspace_name>/center-<UUID>
 ```
 ```
 nodetool refresh
+```
+```
+nodetool status
 ```
