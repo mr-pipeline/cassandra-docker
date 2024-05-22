@@ -62,6 +62,7 @@ exit
 ```
 
 -----
+
 <b>T-Shooting</b>
 
 ```
@@ -74,7 +75,7 @@ CREATE KEYSPACE tahlilgaran WITH replication = {'class': 'SimpleStrategy', 'repl
 ls /var/lib/cassandra/data/<keyspace_name>
 ```
 
-* in */etc/cassandra/cassandra.yaml* check:
+* in `/etc/cassandra/cassandra.yaml` check:
 ```
 data_file_directories:
     - /var/lib/cassandra/data
@@ -118,7 +119,7 @@ nodetool refresh
 ```
 
 ### Important Facts About Data Files:
-get *UIID* from Log File:
+get `UIID` from Log File:
 ```
 mkdir -p /var/lib/cassandra/data/<keyspace_name>/<table_name>-<UUID>
 ```
