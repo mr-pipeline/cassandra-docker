@@ -61,7 +61,6 @@ nodetool refresh <keyspace_name> <table_name>
 exit
 ```
 
------
 
 ## T-Shooting
 
@@ -117,6 +116,8 @@ nodetool status
 ```
 nodetool refresh
 ```
+
+-----
 
 ### Important Facts About Data Files:
 get `UIID` from Log File:
