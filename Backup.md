@@ -61,3 +61,47 @@ nodetool refresh <keyspace_name> <table_name>
 exit
 ```
 
+-----
+<b>T-Shooting</b>
+
+```
+cqlsh> DESCRIBE keyspaces;
+```
+```
+CREATE KEYSPACE tahlilgaran WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 1};
+```
+```
+ls /var/lib/cassandra/data/tahlilgaran
+```
+```
+* in */etc/cassandra/cassandra.yaml* check:
+```
+data_file_directories:
+    - /var/lib/cassandra/data
+```
+```
+nodetool refresh tahlilgaran center
+```
+```
+tail -f /var/log/cassandra/system.log
+```
+* Check Tables:
+```
+cqlsh > USE tahlilgaran;
+DESCRIBE tables;
+```
+* Create Tables:
+```
+CREATE TABLE center (
+    id UUID PRIMARY KEY,
+    name text,
+    description text
+);
+```
+* Check Data Files:
+```
+/var/lib/cassandra/data/tahlilgaran/center-<UUID>
+```
+```
+nodetool refresh
+```
