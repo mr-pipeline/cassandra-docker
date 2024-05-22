@@ -78,6 +78,13 @@ ls /var/lib/cassandra/data/<keyspace_name>
 ```
 data_file_directories:
     - /var/lib/cassandra/data
+
+listen_address: 192.168.1.100
+rpc_address: 0.0.0.0
+seed_provider:
+  - class_name: org.apache.cassandra.locator.SimpleSeedProvider
+    parameters:
+      - seeds: "192.168.1.100,192.168.1.101"
 ```
 ```
 nodetool refresh <keyspace_name> center
@@ -92,19 +99,47 @@ DESCRIBE tables;
 ```
 * Create Tables:
 ```
-CREATE TABLE users (
+CREATE TABLE <table_name> (
     id UUID PRIMARY KEY,
     name text,
     description text
 );
 ```
+* Check Nodes Status:
+```
+nodetool status
+```
 * Check Data Files:
 ```
-/var/lib/cassandra/data/<keyspace_name>/center-<UUID>
+/var/lib/cassandra/data/<keyspace_name>/<table_name>-<UUID>
 ```
 ```
 nodetool refresh
 ```
+
+### Important Facts About Data Files:
+get *UIID* from Log File:
 ```
-nodetool status
+mkdir -p /var/lib/cassandra/data/<keyspace_name>/<table_name>-<UUID>
+```
+```
+chown -R cassandra:cassandra /var/lib/cassandra/data/<keyspace_name>
+```
+* Check SSTabls Files:
+```
+    *-Data.db
+    *-Index.db
+    *-Filter.db
+    *-Summary.db
+    *-TOC.txt
+```
+* Restart Cassandra Service:
+```
+sudo systemctl restart cassandra
+```
+```
+sudo service cassandra restart
+```
+```
+docker restart <container_id_or_name>
 ```
