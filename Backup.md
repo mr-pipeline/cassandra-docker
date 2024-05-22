@@ -1,3 +1,5 @@
+<b>Create Backup</b>
+
 Get into cassandra container:
 ```
 docker exec -it <container_name> /bin/bash
@@ -18,3 +20,44 @@ Copy snapshots from container to host:
 ```
 docker cp <container_name>:/var/lib/cassandra/data/<keyspace_name>/snapshots/ <local_backup_directory>
 ```
+
+<b>Transfer Container to New VM</b>
+```
+docker stop <container_name>
+docker commit <container_name> <image_name>
+docker save -o <image_name>.tar <image_name>
+```
+```
+scp <image_name>.tar user@new_vm:/path/to/destination
+```
+
+<b>Create Container in New VM</b>
+```
+docker load -i /path/to/destination/<image_name>.tar
+```
+```
+docker run -d --name <new_container_name> <image_name>
+```
+
+<b>Restore Container in New VM</b>
+
+--Copy Snapshots to New Container:
+```
+docker cp <local_backup_directory> <new_container_name>:/var/lib/cassandra/data/<keyspace_name>/snapshots/
+```
+
+Enter to Container:
+```
+docker exec -it <new_container_name> /bin/bash
+```
+
+Using nodetool to restore snapshots:
+```
+nodetool refresh <keyspace_name> <table_name>
+```
+
+Exit Container:
+```
+exit
+```
+
