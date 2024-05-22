@@ -1,4 +1,4 @@
-<b>Create Backup</b>
+# Create Backup
 
 Get into cassandra container:
 ```
@@ -31,7 +31,7 @@ docker save -o <image_name>.tar <image_name>
 scp <image_name>.tar user@new_vm:/path/to/destination
 ```
 
-<b>Create Container in New VM</b>
+### Create Container in New VM
 ```
 docker load -i /path/to/destination/<image_name>.tar
 ```
@@ -41,7 +41,7 @@ docker run -d --name <new_container_name> <image_name>
 
 <b>Restore Container in New VM</b>
 
---Copy Snapshots to New Container:
+* Copy Snapshots to New Container:
 ```
 docker cp <local_backup_directory> <new_container_name>:/var/lib/cassandra/data/<keyspace_name>/snapshots/
 ```
